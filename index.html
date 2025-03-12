@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Цветочная магия</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #fff38e;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        #flowerButton {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 15px 30px;
+            font-size: 18px;
+            cursor: pointer;
+            border: none;
+            background-color: #3c6d71;
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            z-index: 1000; 
+        }
+
+        .flower {
+            position: absolute;
+            width: auto;
+            max-width: 150px; 
+            height: auto;
+            pointer-events: none; 
+        }
+    </style>
+</head>
+<body>
+
+    <button id="flowerButton">Приблизь лето🌸</button>
+
+    <script>
+        const flowerImages = [
+            "flower1.png",
+            "flower2.png",
+            "flower3.png",
+            "flower4.png",
+            "flower5.png",
+            "flower6.png"
+        ];
+
+        document.getElementById("flowerButton").addEventListener("click", function() {
+            if (document.querySelectorAll(".flower").length >= 3000) return; 
+
+            let flower = document.createElement("img");
+            flower.src = flowerImages[Math.floor(Math.random() * flowerImages.length)];
+            flower.classList.add("flower");
+
+            let button = document.getElementById("flowerButton");
+            let buttonRect = button.getBoundingClientRect();
+
+            let x, y;
+            do {
+                x = Math.random() * window.innerWidth;
+                y = Math.random() * window.innerHeight;
+            } while (
+                x > buttonRect.left - 50 && x < buttonRect.right + 50 &&
+                y > buttonRect.top - 50 && y < buttonRect.bottom + 50
+            );
+
+            flower.style.left = `${x}px`;
+            flower.style.top = `${y}px`;
+
+            document.body.appendChild(flower);
+        });
+    </script>
+
+</body>
+</html>
